@@ -3,888 +3,807 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Karina Souza — Designer Gráfico & Social Media</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<title>Karina Souza — Social Media & Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#040404;
+  --bg2:#0c0c0c;
+  --card:#111;
+  --border:rgba(255,255,255,0.07);
+  --text:#f0ede8;
+  --muted:rgba(240,237,232,0.48);
+  --pill1:#ddd7d7;
+  --pill2:#b3bed9;
+  --btn-bg:#ddd7d7;
+  --btn-hover:#b3bed9;
+  --white:#fff;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
 
-  :root {
-    --black: #080808;
-    --off-black: #0f0f0f;
-    --dark: #141414;
-    --card: #181818;
-    --border: rgba(255,255,255,0.07);
-    --text: #e8e4de;
-    --muted: rgba(232,228,222,0.45);
-    --accent: #c9a96e;
-    --accent2: #e8c88a;
-    --white: #f5f2ec;
-  }
+/* NOISE */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.5;
+}
 
-  html { scroll-behavior: smooth; }
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 64px;
+  transition:background .4s,backdrop-filter .4s;
+}
+nav.scrolled{
+  background:rgba(4,4,4,.94);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;font-size:19px;font-weight:700;
+  color:var(--white);text-decoration:none;letter-spacing:.5px;
+}
+.nav-logo span{color:var(--pill2)}
+.nav-links{display:flex;gap:40px}
+.nav-links a{
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .3s;
+}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{
+  padding:10px 22px;background:var(--btn-bg);color:#040404;
+  font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;border-radius:2px;transition:background .3s;
+  white-space:nowrap;
+}
+.nav-cta:hover{background:var(--btn-hover)}
 
-  body {
-    background: var(--black);
-    color: var(--text);
-    font-family: 'Cormorant Garamond', serif;
-    overflow-x: hidden;
-    cursor: none;
-  }
+/* mobile menu button */
+.nav-burger{
+  display:none;flex-direction:column;gap:5px;cursor:pointer;
+  background:none;border:none;padding:4px;
+}
+.nav-burger span{
+  display:block;width:24px;height:2px;
+  background:var(--muted);border-radius:2px;
+  transition:transform .3s,opacity .3s;
+}
+.nav-mobile{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(4,4,4,.98);z-index:190;
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:40px;
+}
+.nav-mobile.open{display:flex}
+.nav-mobile a{
+  font-family:'Playfair Display',serif;font-size:32px;font-weight:600;
+  color:var(--white);text-decoration:none;opacity:.7;transition:opacity .3s;
+}
+.nav-mobile a:hover{opacity:1}
+.nav-mobile-close{
+  position:absolute;top:28px;right:28px;
+  background:none;border:none;color:var(--muted);
+  font-size:28px;cursor:pointer;
+}
 
-  /* CURSOR */
-  .cursor {
-    width: 10px; height: 10px;
-    background: var(--accent);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9999;
-    transition: transform 0.15s ease;
-    mix-blend-mode: difference;
-  }
-  .cursor-ring {
-    width: 36px; height: 36px;
-    border: 1px solid var(--accent);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9998;
-    transition: transform 0.35s ease, width 0.3s, height 0.3s;
-    opacity: 0.5;
-  }
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:120px 64px 80px;
+  position:relative;overflow:hidden;gap:60px;
+}
+/* grid lines */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);
+  pointer-events:none;
+}
+.hero-glow{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(179,190,217,.07) 0%,transparent 70%);
+  top:50%;right:5%;transform:translateY(-50%);pointer-events:none;z-index:0;
+}
+.hero-left{position:relative;z-index:2}
 
-  /* NOISE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 1000; opacity: 0.4;
-  }
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 16px;border:1px solid rgba(179,190,217,.25);border-radius:999px;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--pill2);
+  margin-bottom:36px;background:rgba(179,190,217,.05);
+}
+.hero-eyebrow-dot{
+  width:5px;height:5px;background:#4ade80;
+  border-radius:50%;display:inline-block;
+  animation:blink 2s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 28px 60px;
-    z-index: 100;
-    mix-blend-mode: normal;
-  }
-  nav::before {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(8,8,8,0.9), transparent);
-    pointer-events: none;
-  }
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 4px;
-    color: var(--white);
-    text-decoration: none;
-    position: relative;
-  }
-  .nav-logo span { color: var(--accent); }
-  .nav-links { display: flex; gap: 48px; position: relative; }
-  .nav-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--accent); }
+.hero-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(52px,7vw,96px);
+  font-weight:700;line-height:.95;
+  color:var(--white);letter-spacing:-1px;
+  margin-bottom:36px;
+}
+.hero-name em{font-style:italic;color:var(--pill2);display:block}
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex; align-items: flex-end;
-    padding: 0 60px 80px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 60% 60% at 75% 30%, rgba(201,169,110,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(201,169,110,0.04) 0%, transparent 60%);
-  }
-  .hero-lines {
-    position: absolute; right: 0; top: 0; bottom: 0;
-    width: 40%;
-    background: repeating-linear-gradient(
-      90deg,
-      transparent 0, transparent 60px,
-      rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px
-    );
-  }
-  .hero-number {
-    position: absolute; top: 50%; right: 60px;
-    transform: translateY(-50%);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(180px, 22vw, 340px);
-    color: rgba(255,255,255,0.025);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-  }
-  .hero-content { position: relative; max-width: 800px; }
-  .hero-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 28px;
-    display: flex; align-items: center; gap: 16px;
-  }
-  .hero-tag::before {
-    content: ''; display: block; width: 40px; height: 1px; background: var(--accent);
-  }
-  h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(52px, 8vw, 112px);
-    font-weight: 300;
-    line-height: 0.92;
-    letter-spacing: -2px;
-    color: var(--white);
-    margin-bottom: 36px;
-  }
-  h1 em {
-    font-style: italic;
-    color: var(--accent);
-    display: block;
-  }
-  .hero-desc {
-    font-size: 18px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.6;
-    max-width: 480px;
-    margin-bottom: 52px;
-  }
-  .hero-cta {
-    display: flex; gap: 24px; align-items: center; flex-wrap: wrap;
-  }
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 12px;
-    padding: 16px 36px;
-    background: var(--accent);
-    color: var(--black);
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: background 0.3s, transform 0.2s;
-  }
-  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
-  .btn-secondary {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .btn-secondary:hover { color: var(--white); }
-  .btn-secondary::after { content: '↗'; font-size: 14px; }
+/* headline pill style */
+.hero-headline{
+  font-size:clamp(20px,2.8vw,32px);
+  font-weight:700;color:var(--white);
+  line-height:1.5;margin-bottom:48px;letter-spacing:-.3px;
+}
+.word-italic{
+  font-style:italic;font-family:'Playfair Display',serif;
+  font-weight:600;color:var(--white);
+}
+.pill-outline{
+  display:inline-block;
+  border:2px solid var(--white);border-radius:999px;
+  padding:1px 14px;font-weight:700;
+  font-style:italic;font-family:'Playfair Display',serif;
+  color:var(--white);line-height:1.5;margin:0 2px;
+}
+.pill-filled{
+  display:inline-block;
+  background:var(--pill2);border-radius:999px;
+  padding:1px 14px;font-weight:700;
+  color:#040404;line-height:1.5;margin:0 2px;
+}
 
-  /* STATS */
-  .stats {
-    background: var(--off-black);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    display: grid; grid-template-columns: repeat(4, 1fr);
-  }
-  .stat-item {
-    padding: 48px 60px;
-    border-right: 1px solid var(--border);
-    animation: fadeUp 0.6s ease both;
-  }
-  .stat-item:last-child { border-right: none; }
-  .stat-number {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 56px;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .stat-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn-main{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 28px;background:var(--btn-bg);color:#040404;
+  font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;border-radius:3px;transition:background .3s,transform .2s;
+}
+.btn-main:hover{background:var(--btn-hover);transform:translateY(-2px)}
+.btn-main svg{width:16px;height:16px;flex-shrink:0}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:2px;
+  transition:color .3s,border-color .3s;
+}
+.btn-ghost:hover{color:var(--white);border-color:var(--white)}
 
-  /* SECTION HEADER */
-  .section-header {
-    display: flex; align-items: baseline; gap: 24px;
-    margin-bottom: 64px;
-  }
-  .section-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 5vw, 64px);
-    font-weight: 300;
-    color: var(--white);
-    letter-spacing: -1px;
-  }
-  h2 em { font-style: italic; color: var(--accent); }
+/* hero photo */
+.hero-right{
+  position:relative;z-index:2;
+  display:flex;justify-content:center;align-items:flex-end;
+}
+.photo-wrap{
+  width:100%;max-width:460px;
+  position:relative;
+}
+.photo-wrap img{
+  width:100%;display:block;
+  /* foto com fundo removido — sem filtros, sem gradientes */
+}
 
-  /* ABOUT */
-  .about {
-    padding: 120px 60px;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 100px;
-    align-items: center;
-  }
-  .about-text p {
-    font-size: 19px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.8;
-    margin-bottom: 24px;
-  }
-  .about-text p strong { color: var(--text); font-weight: 400; }
-  .about-skills {
-    display: flex; flex-wrap: wrap; gap: 12px;
-    margin-top: 40px;
-  }
-  .skill-tag {
-    padding: 8px 20px;
-    border: 1px solid var(--border);
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    transition: border-color 0.3s, color 0.3s;
-  }
-  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
-  .about-visual {
-    position: relative;
-  }
-  .about-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 48px;
-    position: relative;
-  }
-  .about-card::before {
-    content: '';
-    position: absolute; top: -1px; left: 40px; right: 40px; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  }
-  .about-card-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 36px;
-    letter-spacing: 3px;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-  .about-card-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 32px;
-  }
-  .about-card-info { display: flex; flex-direction: column; gap: 16px; }
-  .info-row {
-    display: flex; gap: 16px; align-items: center;
-    font-size: 15px; color: var(--muted);
-  }
-  .info-row::before {
-    content: '—'; color: var(--accent); font-family: 'DM Mono', monospace;
-  }
-  .available-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    margin-top: 32px;
-    padding: 10px 20px;
-    background: rgba(201,169,110,0.1);
-    border: 1px solid rgba(201,169,110,0.3);
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  .dot {
-    width: 6px; height: 6px;
-    background: #4ade80;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.3); }
-  }
+/* ── TICKER ── */
+.ticker-wrap{
+  overflow:hidden;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:var(--bg2);padding:16px 0;
+}
+.ticker{display:flex;animation:ticker 22s linear infinite;width:max-content}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{
+  display:flex;align-items:center;gap:16px;padding:0 40px;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;
+}
+.ticker-item::after{content:'✦';color:var(--pill2);font-size:8px}
 
-  /* PROJECTS */
-  .projects { padding: 120px 60px; }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-  }
-  .project-card {
-    background: var(--card);
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 4/3;
-    display: flex; align-items: flex-end;
-    cursor: none;
-  }
-  .project-card.featured {
-    grid-column: span 2;
-    aspect-ratio: 16/9;
-  }
-  .project-img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s;
-    filter: brightness(0.5) saturate(0.8);
-  }
-  .project-card:hover .project-img {
-    transform: scale(1.06);
-    filter: brightness(0.3) saturate(0.6);
-  }
-  .project-info {
-    position: relative; z-index: 2;
-    padding: 32px;
-    width: 100%;
-    background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, transparent 100%);
-    transform: translateY(8px);
-    transition: transform 0.4s ease;
-  }
-  .project-card:hover .project-info { transform: translateY(0); }
-  .project-cat {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-  .project-name {
-    font-size: 22px;
-    font-weight: 300;
-    color: var(--white);
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
-  .project-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-    text-decoration: none;
-    opacity: 0;
-    transition: opacity 0.4s;
-  }
-  .project-card:hover .project-link { opacity: 1; }
+/* ── SOBRE ── */
+.sobre{
+  position:relative;overflow:hidden;padding:130px 64px;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+/* workspace photo como fundo */
+.sobre-bg-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  filter:brightness(.08) saturate(.4);
+  display:block;
+}
+.sobre-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(4,4,4,.97) 50%,rgba(4,4,4,.85));
+}
+.sobre-left,.sobre-right{position:relative;z-index:2}
 
-  /* SERVICES */
-  .services {
-    padding: 120px 60px;
-    background: var(--off-black);
-    border-top: 1px solid var(--border);
-  }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-  .service-item {
-    background: var(--off-black);
-    padding: 52px 48px;
-    transition: background 0.3s;
-  }
-  .service-item:hover { background: var(--card); }
-  .service-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 72px;
-    color: rgba(201,169,110,0.12);
-    line-height: 1;
-    margin-bottom: 24px;
-    transition: color 0.3s;
-  }
-  .service-item:hover .service-num { color: rgba(201,169,110,0.25); }
-  .service-name {
-    font-size: 26px;
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 16px;
-    line-height: 1.2;
-  }
-  .service-desc {
-    font-size: 16px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.7;
-  }
+.section-tag{
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--pill2);margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.section-tag::before{content:'';width:28px;height:1px;background:var(--pill2)}
 
-  /* CONTACT */
-  .contact {
-    padding: 140px 60px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .contact::before {
-    content: 'CONTATO';
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(100px, 18vw, 260px);
-    color: rgba(255,255,255,0.02);
-    white-space: nowrap;
-    pointer-events: none;
-  }
-  .contact-subtitle {
-    font-size: 18px;
-    font-weight: 300;
-    color: var(--muted);
-    margin-bottom: 16px;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-  }
-  .contact h2 {
-    font-size: clamp(42px, 7vw, 96px);
-    margin-bottom: 24px;
-  }
-  .contact-desc {
-    font-size: 18px;
-    color: var(--muted);
-    font-weight: 300;
-    margin-bottom: 60px;
-    max-width: 500px;
-    margin-left: auto; margin-right: auto;
-    line-height: 1.6;
-  }
-  .contact-links {
-    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
-  }
-  .contact-link {
-    display: flex; align-items: center; gap: 10px;
-    padding: 18px 40px;
-    border: 1px solid var(--border);
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: border-color 0.3s, color 0.3s, background 0.3s;
-  }
-  .contact-link:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(201,169,110,0.05);
-  }
-  .contact-link.primary {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--black);
-  }
-  .contact-link.primary:hover {
-    background: var(--accent2); border-color: var(--accent2);
-  }
+h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,4vw,54px);font-weight:600;
+  color:var(--white);line-height:1.1;letter-spacing:-.5px;margin-bottom:32px;
+}
+h2 em{font-style:italic;color:var(--pill2)}
 
-  /* FOOTER */
-  footer {
-    padding: 40px 60px;
-    border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px; letter-spacing: 4px;
-    color: var(--muted);
-  }
-  .footer-logo span { color: var(--accent); }
-  .footer-copy {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: rgba(255,255,255,0.2);
-    text-transform: uppercase;
-  }
+.sobre-text p{
+  font-size:17px;font-weight:300;color:var(--muted);
+  line-height:1.85;margin-bottom:20px;
+}
+.sobre-text p strong{color:var(--text);font-weight:500}
 
-  /* SCROLL INDICATOR */
-  .scroll-line {
-    position: fixed; right: 24px; top: 50%;
-    transform: translateY(-50%);
-    display: flex; flex-direction: column;
-    align-items: center; gap: 16px;
-    z-index: 50;
-  }
-  .scroll-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    writing-mode: vertical-rl;
-  }
-  .scroll-bar {
-    width: 1px; height: 60px;
-    background: var(--border);
-    position: relative; overflow: hidden;
-  }
-  .scroll-bar::after {
-    content: ''; position: absolute;
-    top: -100%; left: 0; right: 0;
-    height: 100%;
-    background: var(--accent);
-    animation: scrollDown 2s ease infinite;
-  }
-  @keyframes scrollDown {
-    0% { top: -100%; }
-    100% { top: 100%; }
-  }
+/* workspace photo on the right */
+.sobre-right{display:flex;flex-direction:column;gap:2px}
+.sobre-img-box{
+  position:relative;border-radius:6px;overflow:hidden;
+  border:1px solid var(--border);
+}
+.sobre-img-box img{
+  width:100%;display:block;
+  /* clean photo, no extra filters */
+}
+.sobre-img-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:18px 22px;
+  background:linear-gradient(to top,rgba(4,4,4,.85),transparent);
+  font-size:13px;color:rgba(240,237,232,.6);letter-spacing:.5px;
+}
+.sobre-stats{display:flex;gap:2px}
+.stat-box{
+  flex:1;padding:24px 20px;
+  border:1px solid var(--border);border-top:none;
+  background:rgba(255,255,255,.02);
+  transition:background .3s;
+}
+.stat-box:hover{background:rgba(179,190,217,.04)}
+.stat-val{
+  font-family:'Playfair Display',serif;
+  font-size:40px;font-weight:700;line-height:1;
+  color:var(--pill2);margin-bottom:4px;
+}
+.stat-label{font-size:11px;color:var(--muted);font-weight:300;line-height:1.4}
 
-  /* ANIMS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .fade-in {
-    opacity: 0; transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .fade-in.visible {
-    opacity: 1; transform: translateY(0);
-  }
+/* ── SERVIÇOS ── */
+.servicos{padding:130px 64px;background:var(--bg)}
+.servicos-list{margin-top:64px;border-top:1px solid var(--border)}
+.servico-item{border-bottom:1px solid var(--border);overflow:hidden}
+.servico-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:32px 0;cursor:pointer;user-select:none;
+}
+.servico-header:hover .servico-name{color:var(--pill2)}
+.servico-num{
+  font-size:12px;letter-spacing:2px;color:var(--muted);
+  width:44px;flex-shrink:0;
+}
+.servico-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(20px,2.8vw,34px);font-weight:600;
+  color:var(--white);flex:1;padding:0 20px;transition:color .3s;
+}
+.servico-tags{display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0}
+.servico-tag{
+  padding:5px 12px;border-radius:999px;
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  border:1px solid var(--border);color:var(--muted);
+}
+.servico-arrow{
+  width:34px;height:34px;border:1px solid var(--border);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-left:20px;font-size:16px;color:var(--muted);
+  transition:transform .4s,background .3s,color .3s,border-color .3s;
+}
+.servico-item.open .servico-arrow{
+  transform:rotate(45deg);
+  background:var(--pill2);color:#040404;border-color:var(--pill2);
+}
+.servico-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(.4,0,.2,1),padding .4s;
+  padding-left:64px;
+}
+.servico-item.open .servico-body{max-height:360px;padding:0 0 36px 64px}
+.servico-body p{
+  font-size:16px;font-weight:300;color:var(--muted);
+  line-height:1.85;max-width:580px;margin-bottom:20px;
+}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  padding:7px 14px;
+  background:rgba(221,215,215,.05);
+  border:1px solid rgba(221,215,215,.1);
+  border-radius:3px;font-size:12px;
+  color:rgba(240,237,232,.55);
+}
 
-  /* RESPONSIVE */
-  @media (max-width: 1024px) {
-    nav { padding: 24px 32px; }
-    .hero, .projects, .services, .contact, .about { padding-left: 32px; padding-right: 32px; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-    .stat-item { padding: 36px 32px; }
-    .stat-item:nth-child(2) { border-right: none; }
-    .about { grid-template-columns: 1fr; gap: 60px; }
-    .projects-grid { grid-template-columns: 1fr 1fr; }
-    .project-card.featured { grid-column: span 2; }
-    .services-grid { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 16px; text-align: center; }
+/* ── CONTATO ── */
+.contato{
+  padding:130px 64px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:start;
+  border-top:1px solid var(--border);
+}
+.contato-desc{
+  font-size:17px;font-weight:300;color:var(--muted);
+  line-height:1.8;margin-bottom:36px;
+}
+.contato-desc strong{color:var(--text);font-weight:500}
+.wa-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:17px 32px;background:#25D366;color:#fff;
+  font-size:13px;font-weight:600;letter-spacing:.5px;
+  text-decoration:none;border-radius:4px;
+  transition:background .3s,transform .2s;margin-bottom:40px;
+}
+.wa-btn:hover{background:#1ebe5a;transform:translateY(-2px)}
+.wa-btn svg{width:20px;height:20px;flex-shrink:0}
+.social-list{display:flex;flex-direction:column;gap:8px}
+.social-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 18px;border:1px solid var(--border);border-radius:3px;
+  text-decoration:none;color:var(--muted);font-size:13px;letter-spacing:.5px;
+  transition:border-color .3s,color .3s;
+}
+.social-item:hover{border-color:rgba(179,190,217,.35);color:var(--text)}
+.social-item span:last-child{font-size:11px;opacity:.5}
+
+/* form */
+.form{display:flex;flex-direction:column;gap:14px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:7px}
+.fg label{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+}
+.fg input,.fg select,.fg textarea{
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  color:var(--text);font-family:'Inter',sans-serif;
+  font-size:14px;font-weight:300;padding:13px 16px;border-radius:3px;
+  outline:none;transition:border-color .3s;-webkit-appearance:none;
+}
+.fg select{cursor:pointer}
+.fg select option{background:#111;color:var(--text)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(179,190,217,.5)}
+.fg textarea{resize:vertical;min-height:110px}
+.form-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:15px 32px;background:var(--btn-bg);color:#040404;
+  font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  border:none;border-radius:3px;cursor:pointer;
+  font-family:'Inter',sans-serif;transition:background .3s,transform .2s;
+}
+.form-btn:hover{background:var(--btn-hover);transform:translateY(-2px)}
+.form-note{font-size:11px;color:var(--muted)}
+
+/* ── FOOTER ── */
+footer{
+  padding:44px 64px;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-logo{
+  font-family:'Playfair Display',serif;font-size:17px;font-weight:700;
+  color:rgba(240,237,232,.3);
+}
+.footer-logo span{color:var(--pill2)}
+.footer-links{display:flex;gap:28px}
+.footer-links a{
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(240,237,232,.2);text-decoration:none;transition:color .3s;
+}
+.footer-links a:hover{color:var(--muted)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.12)}
+
+/* ── FADE IN ── */
+.fade{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
+.fade.on{opacity:1;transform:none}
+.fd1{transition-delay:.1s}.fd2{transition-delay:.2s}.fd3{transition-delay:.3s}
+
+/* ══════════════════════════════
+   RESPONSIVE — MOBILE FIRST
+   ══════════════════════════════ */
+
+/* Tablet */
+@media(max-width:1024px){
+  nav{padding:20px 40px}
+  .nav-links{gap:28px}
+  .hero{padding:110px 40px 72px;gap:40px}
+  .sobre{padding:100px 40px;gap:60px}
+  .servicos{padding:100px 40px}
+  .contato{padding:100px 40px;gap:60px}
+  footer{padding:40px 40px}
+}
+
+/* Mobile */
+@media(max-width:768px){
+  /* nav */
+  nav{padding:18px 24px}
+  .nav-links,.nav-cta{display:none}
+  .nav-burger{display:flex}
+
+  /* hero — coluna única, foto em cima */
+  .hero{
+    grid-template-columns:1fr;
+    min-height:auto;
+    padding:100px 24px 64px;
+    gap:0;
   }
-  @media (max-width: 640px) {
-    nav .nav-links { display: none; }
-    h1 { font-size: 48px; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .project-card.featured { grid-column: span 1; }
-    .stats { grid-template-columns: 1fr 1fr; }
-    .scroll-line { display: none; }
+  .hero-right{
+    order:-1; /* foto ACIMA do texto */
+    justify-content:center;
+    margin-bottom:40px;
   }
+  .photo-wrap{max-width:260px}
+  .hero-left{text-align:center}
+  .hero-eyebrow{margin-left:auto;margin-right:auto}
+  .hero-actions{justify-content:center}
+  .hero-glow{display:none}
+
+  /* headline breaks naturally on mobile */
+  .hero-headline{font-size:clamp(18px,5vw,26px)}
+
+  /* ticker */
+  .ticker-item{padding:0 24px;font-size:10px}
+
+  /* sobre — coluna única */
+  .sobre{
+    grid-template-columns:1fr;
+    padding:80px 24px;gap:48px;
+  }
+  .sobre-stats{flex-direction:row}
+  .stat-box{padding:20px 16px}
+  .stat-val{font-size:32px}
+
+  /* serviços */
+  .servicos{padding:80px 24px}
+  .servico-tags{display:none} /* oculta tags no mobile pra não quebrar layout */
+  .servico-name{font-size:20px;padding:0 12px}
+  .servico-body{padding-left:0}
+  .servico-item.open .servico-body{padding:0 0 28px 0}
+
+  /* contato — coluna única */
+  .contato{
+    grid-template-columns:1fr;
+    padding:80px 24px;gap:56px;
+  }
+  .form-row{grid-template-columns:1fr}
+
+  /* footer */
+  footer{
+    flex-direction:column;gap:20px;
+    text-align:center;padding:36px 24px;
+  }
+  .footer-links{justify-content:center;flex-wrap:wrap;gap:20px}
+}
+
+/* Small phones */
+@media(max-width:400px){
+  .hero-name{font-size:44px}
+  .photo-wrap{max-width:220px}
+  .btn-main{padding:14px 20px;font-size:11px}
+}
 </style>
 </head>
 <body>
 
-<!-- CURSOR -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<!-- SCROLL INDICATOR -->
-<div class="scroll-line">
-  <span class="scroll-text">Scroll</span>
-  <div class="scroll-bar"></div>
-</div>
-
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">K<span>.</span>DESIGNER</a>
+<nav id="nav">
+  <a href="#" class="nav-logo">Karina <span>Souza</span></a>
   <div class="nav-links">
     <a href="#sobre">Sobre</a>
-    <a href="#projetos">Projetos</a>
     <a href="#servicos">Serviços</a>
+    <a href="https://www.behance.net/karinacsouza" target="_blank">Portfólio</a>
     <a href="#contato">Contato</a>
   </div>
+  <a href="https://wa.me/5521976590941?text=Oi%20Karina!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" class="nav-cta">Solicitar orçamento</a>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
+<!-- MOBILE MENU -->
+<div class="nav-mobile" id="mobileMenu">
+  <button class="nav-mobile-close" id="menuClose">✕</button>
+  <a href="#sobre" onclick="closeMenu()">Sobre</a>
+  <a href="#servicos" onclick="closeMenu()">Serviços</a>
+  <a href="https://www.behance.net/karinacsouza" target="_blank" onclick="closeMenu()">Portfólio</a>
+  <a href="#contato" onclick="closeMenu()">Contato</a>
+</div>
+
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-lines"></div>
-  <div class="hero-number">K</div>
-  <div class="hero-content fade-in visible">
-    <div class="hero-tag">Designer Gráfico & Social Media · Rio de Janeiro</div>
-    <h1>
-      Karina<br>
-      <em>Souza</em>
-    </h1>
-    <p class="hero-desc">
-      Design que comunica, conecta e converte. Especialista em identidade visual, social media e marketing digital há mais de 5 anos.
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+
+  <div class="hero-left fade">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      Social Media & Designer de Posts
+    </div>
+    <h1 class="hero-name">Karina<br><em>Souza</em></h1>
+    <p class="hero-headline">
+      Transformando <span class="word-italic">ideias</span><br>
+      em <span class="pill-outline">design</span> e <span class="pill-filled">estratégias</span><br>
+      em resultados!
     </p>
-    <div class="hero-cta">
-      <a href="#projetos" class="btn-primary">Ver Portfólio</a>
-      <a href="https://www.instagram.com/kdesigner.mkt" target="_blank" class="btn-secondary">@kdesigner.mkt</a>
+    <div class="hero-actions">
+      <a href="https://wa.me/5521976590941?text=Oi%20Karina!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" class="btn-main">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Solicitar orçamento
+      </a>
+      <a href="https://www.behance.net/karinacsouza" target="_blank" class="btn-ghost">Ver portfólio →</a>
+    </div>
+  </div>
+
+  <!-- SUA FOTO — sem filtro, sem gradiente, sem glow -->
+  <div class="hero-right fade fd2">
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat-item">
-    <div class="stat-number">5+</div>
-    <div class="stat-label">Anos de Experiência</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">45</div>
-    <div class="stat-label">Projetos Apreciados</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">1.6K</div>
-    <div class="stat-label">Visualizações no Behance</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">100%</div>
-    <div class="stat-label">Disponível Agora</div>
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item">Gestão de Redes Sociais</div>
+    <div class="ticker-item">Design de Posts</div>
+    <div class="ticker-item">Planejamento Estratégico</div>
+    <div class="ticker-item">Análise de Perfil</div>
+    <div class="ticker-item">Marketing de Conteúdo</div>
+    <div class="ticker-item">5 Anos de Experiência</div>
+    <div class="ticker-item">Gestão de Redes Sociais</div>
+    <div class="ticker-item">Design de Posts</div>
+    <div class="ticker-item">Planejamento Estratégico</div>
+    <div class="ticker-item">Análise de Perfil</div>
+    <div class="ticker-item">Marketing de Conteúdo</div>
+    <div class="ticker-item">5 Anos de Experiência</div>
   </div>
 </div>
 
-<!-- ABOUT -->
-<section class="about" id="sobre">
-  <div class="about-text fade-in">
-    <div class="section-header">
-      <span class="section-tag">01 / Sobre</span>
-      <h2>Quem <em>sou eu</em></h2>
-    </div>
-    <p>Olá! Sou a <strong>Karina</strong>, formada em Publicidade e Propaganda e Marketing, com especialização em <strong>Design Gráfico e Web</strong>.</p>
-    <p>Trabalho com <strong>Gestão de Mídias Sociais</strong> e Marketing de Conteúdo há mais de 5 anos, com foco em criar experiências visuais que <strong>geram resultado</strong> para cada marca.</p>
-    <p>Cada projeto é único — da identidade visual ao feed do Instagram, entrego soluções que transformam marcas.</p>
-    <div class="about-skills">
-      <span class="skill-tag">Identidade Visual</span>
-      <span class="skill-tag">Social Media</span>
-      <span class="skill-tag">Design Gráfico</span>
-      <span class="skill-tag">Web Design</span>
-      <span class="skill-tag">Marketing Digital</span>
-      <span class="skill-tag">Landing Pages</span>
-      <span class="skill-tag">Mídias Impressas</span>
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <!-- FOTO DO WORKSPACE COMO FUNDO -->
+  <img class="sobre-bg-img" src="workspace.png" alt="">
+  <div class="sobre-overlay"></div>
+
+  <div class="sobre-left fade">
+    <div class="section-tag">Sobre</div>
+    <h2>Quem <em>sou eu</em></h2>
+    <div class="sobre-text">
+      <p>Oi! Me chamo <strong>Karina</strong>, sou Designer Gráfica e Social Media. Ajudo negócios a se posicionarem de forma estratégica através de posts que não só chamam atenção, mas <strong>geram conexão e vendas</strong>.</p>
+      <p>Trabalho com <strong>Gestão de Mídias Sociais</strong> e Marketing de Conteúdo há mais de 5 anos, combinando <strong>design visual e estratégia de conteúdo</strong> para transformar perfis em canais que atraem e convertem clientes.</p>
+      <p>Se você quer um perfil mais profissional e que realmente converta, <strong>posso te ajudar</strong>.</p>
     </div>
   </div>
-  <div class="about-visual fade-in">
-    <div class="about-card">
-      <div class="about-card-name">Karina Souza</div>
-      <div class="about-card-title">Designer Gráfico & Social Media</div>
-      <div class="about-card-info">
-        <div class="info-row">Rio de Janeiro, Brasil</div>
-        <div class="info-row">Publicidade & Propaganda</div>
-        <div class="info-row">Membro Behance desde 2016</div>
-        <div class="info-row">Freelancer · KDesigner</div>
+
+  <!-- FOTO DO WORKSPACE NO LADO DIREITO -->
+  <div class="sobre-right fade fd2">
+    <div class="sobre-img-box">
+      <img src="workspace.png" alt="Workspace">
+      <div class="sobre-img-caption">Rio de Janeiro, Brasil</div>
+    </div>
+    <div class="sobre-stats">
+      <div class="stat-box">
+        <div class="stat-val">5+</div>
+        <div class="stat-label">Anos de experiência</div>
       </div>
-      <div class="available-badge">
-        <span class="dot"></span>
-        Disponível para Projetos
+      <div class="stat-box" style="border-left:none">
+        <div class="stat-val">100%</div>
+        <div class="stat-label">Foco em conversão</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section class="projects" id="projetos">
-  <div class="section-header fade-in">
-    <span class="section-tag">02 / Projetos</span>
-    <h2>Trabalhos <em>recentes</em></h2>
+<!-- SERVIÇOS -->
+<section class="servicos" id="servicos">
+  <div class="fade">
+    <div class="section-tag">Serviços</div>
+    <h2>Como posso <em>te ajudar</em></h2>
   </div>
-  <div class="projects-grid">
+  <div class="servicos-list fade fd1">
 
-    <div class="project-card featured">
-      <img class="project-img"
-        src="https://mir-s3-cdn-cf.behance.net/projects/404/0c33ca204061619.Y3JvcCwzNTM1LDI3NjUsNTYwLDEwNQ.png"
-        alt="Agon Gestão de Pessoas e Processos">
-      <div class="project-info">
-        <div class="project-cat">Identidade Visual</div>
-        <div class="project-name">Agon Gestão de Pessoas e Processos</div>
-        <a href="https://www.behance.net/gallery/204061619/Agon-Gestao-de-Pessoas-e-Processos" target="_blank" class="project-link">Ver projeto ↗</a>
+    <div class="servico-item">
+      <div class="servico-header" onclick="toggleServico(this)">
+        <span class="servico-num">01.</span>
+        <span class="servico-name">Gestão de Mídias Sociais</span>
+        <div class="servico-tags">
+          <span class="servico-tag">Instagram</span>
+          <span class="servico-tag">Facebook</span>
+        </div>
+        <div class="servico-arrow">+</div>
+      </div>
+      <div class="servico-body">
+        <p>Para quem busca presença digital consistente e estratégica. Cuido de tudo — do planejamento ao design e publicação — para que seu perfil atraia, engaje e converta clientes todos os dias.</p>
+        <div class="chips">
+          <span class="chip">Planejamento mensal de conteúdo</span>
+          <span class="chip">Design de posts e stories</span>
+          <span class="chip">Calendário editorial</span>
+          <span class="chip">Publicação e agendamento</span>
+          <span class="chip">Relatório mensal</span>
+        </div>
       </div>
     </div>
 
-    <div class="project-card">
-      <img class="project-img"
-        src="https://mir-s3-cdn-cf.behance.net/projects/404/6b56db238545253.Y3JvcCwxMDIyLDgwMCwxODcsMA.png"
-        alt="Carter's Co. Bussiness Perfomance">
-      <div class="project-info">
-        <div class="project-cat">Social Media</div>
-        <div class="project-name">Carter's Co. Business Performance</div>
-        <a href="https://www.behance.net/gallery/238545253/Carters-Co-Bussiness-Perfomance" target="_blank" class="project-link">Ver projeto ↗</a>
+    <div class="servico-item">
+      <div class="servico-header" onclick="toggleServico(this)">
+        <span class="servico-num">02.</span>
+        <span class="servico-name">Design de Posts Estratégicos</span>
+        <div class="servico-tags">
+          <span class="servico-tag">Feed</span>
+          <span class="servico-tag">Stories</span>
+        </div>
+        <div class="servico-arrow">+</div>
+      </div>
+      <div class="servico-body">
+        <p>Posts pensados para gerar conexão, autoridade e vendas. Cada peça é criada com intenção visual e estratégica alinhada ao seu posicionamento de marca.</p>
+        <div class="chips">
+          <span class="chip">Posts para feed</span>
+          <span class="chip">Carrosséis</span>
+          <span class="chip">Stories e Reels (thumb)</span>
+          <span class="chip">Linha visual consistente</span>
+        </div>
       </div>
     </div>
 
-    <div class="project-card">
-      <img class="project-img"
-        src="https://mir-s3-cdn-cf.behance.net/projects/404/802cc5209328157.Y3JvcCw3MzYsNTc1LDQ5LDQz.png"
-        alt="Jess Marque Tattoo Landing Page">
-      <div class="project-info">
-        <div class="project-cat">Web Design · Landing Page</div>
-        <div class="project-name">Jess Marque Tattoo</div>
-        <a href="https://www.behance.net/gallery/209328157/Jess-Marque-Tattoo-Landing-Page" target="_blank" class="project-link">Ver projeto ↗</a>
+    <div class="servico-item">
+      <div class="servico-header" onclick="toggleServico(this)">
+        <span class="servico-num">03.</span>
+        <span class="servico-name">Análise de Perfil</span>
+        <div class="servico-tags">
+          <span class="servico-tag">Estratégia</span>
+          <span class="servico-tag">Diagnóstico</span>
+        </div>
+        <div class="servico-arrow">+</div>
       </div>
-    </div>
-
-    <div class="project-card">
-      <img class="project-img"
-        src="https://mir-s3-cdn-cf.behance.net/projects/404/a864d0206087681.Y3JvcCwxMDIyLDgwMCwxODcsMA.png"
-        alt="Galeano Advogados">
-      <div class="project-info">
-        <div class="project-cat">Identidade Visual</div>
-        <div class="project-name">Galeano Advogados & Associados</div>
-        <a href="https://www.behance.net/gallery/206087681/Galeano-Advogados-Associados" target="_blank" class="project-link">Ver projeto ↗</a>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <img class="project-img"
-        src="https://mir-s3-cdn-cf.behance.net/projects/404/4b2198149470773.Y3JvcCwxMDIyLDgwMCwxODcsMA.png"
-        alt="Naturatty Cosméticos">
-      <div class="project-info">
-        <div class="project-cat">Social Media</div>
-        <div class="project-name">Naturatty Cosméticos</div>
-        <a href="https://www.behance.net/gallery/149470773/Social-Media-Naturatty-Cosmticos" target="_blank" class="project-link">Ver projeto ↗</a>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <img class="project-img"
-        src="https://mir-s3-cdn-cf.behance.net/projects/404/3fbdd3125726973.Y3JvcCw4OTgsNzAzLDI0OSw0OA.png"
-        alt="Café Santo Cristo">
-      <div class="project-info">
-        <div class="project-cat">Social Media</div>
-        <div class="project-name">Café Santo Cristo</div>
-        <a href="https://www.behance.net/gallery/125726973/Social-Media-Caf-Santo-Cristo" target="_blank" class="project-link">Ver projeto ↗</a>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <img class="project-img"
-        src="https://mir-s3-cdn-cf.behance.net/projects/404/b0b82e125670341.Y3JvcCwxMDIyLDgwMCwxODcsMA.png"
-        alt="Labi Arquitetura">
-      <div class="project-info">
-        <div class="project-cat">Identidade Visual</div>
-        <div class="project-name">Labi Arquitetura</div>
-        <a href="https://www.behance.net/gallery/125670341/Labi-Arquitetura" target="_blank" class="project-link">Ver projeto ↗</a>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <img class="project-img"
-        src="https://mir-s3-cdn-cf.behance.net/projects/404/8660f137072255.Y3JvcCw4MDgsNjMyLDAsMA.png"
-        alt="Revista de Surf Swell">
-      <div class="project-info">
-        <div class="project-cat">Editorial · Design Gráfico</div>
-        <div class="project-name">Revista de Surf — Swell</div>
-        <a href="https://www.behance.net/gallery/37072255/Revista-de-Surf-Swell" target="_blank" class="project-link">Ver projeto ↗</a>
+      <div class="servico-body">
+        <p>Para quem quer entender o que está travando o crescimento e a conversão do perfil. Analiso estrategicamente bio, feed, identidade visual e conteúdo, e entrego um plano de ação personalizado.</p>
+        <div class="chips">
+          <span class="chip">Análise completa do perfil</span>
+          <span class="chip">Diagnóstico de bio e feed</span>
+          <span class="chip">Plano de conteúdo personalizado</span>
+          <span class="chip">Orientações de posicionamento</span>
+        </div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="services" id="servicos">
-  <div class="section-header fade-in">
-    <span class="section-tag">03 / Serviços</span>
-    <h2>O que <em>ofereço</em></h2>
-  </div>
-  <div class="services-grid">
-    <div class="service-item fade-in">
-      <div class="service-num">01</div>
-      <div class="service-name">Identidade Visual</div>
-      <p class="service-desc">Criação de marcas completas — logo, paleta, tipografia, manual de uso e todos os elementos que constroem uma presença visual sólida e memorável.</p>
-    </div>
-    <div class="service-item fade-in">
-      <div class="service-num">02</div>
-      <div class="service-name">Social Media & Gestão</div>
-      <p class="service-desc">Planejamento, criação de conteúdo e gestão de mídias sociais. Feeds coesos, stories, carrosséis e estratégia de conteúdo para engajar sua audiência.</p>
-    </div>
-    <div class="service-item fade-in">
-      <div class="service-num">03</div>
-      <div class="service-name">Web Design & Landing Pages</div>
-      <p class="service-desc">Design de sites, landing pages e interfaces focadas em conversão. Layouts que unem estética refinada com performance e usabilidade.</p>
-    </div>
-    <div class="service-item fade-in">
-      <div class="service-num">04</div>
-      <div class="service-name">Design Gráfico Digital</div>
-      <p class="service-desc">Banners, peças para anúncios, apresentações, materiais de marketing digital — tudo com acabamento profissional e alinhado à sua marca.</p>
-    </div>
-    <div class="service-item fade-in">
-      <div class="service-num">05</div>
-      <div class="service-name">Design Impresso</div>
-      <p class="service-desc">Cartões de visita, folders, flyers, cartazes, revistas e toda comunicação física da sua marca — do conceito ao arquivo para produção.</p>
-    </div>
-    <div class="service-item fade-in">
-      <div class="service-num">06</div>
-      <div class="service-name">Marketing de Conteúdo</div>
-      <p class="service-desc">Estratégia visual integrada ao seu marketing de conteúdo. Design e comunicação que trabalham juntos para fortalecer sua presença digital.</p>
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="fade">
+    <div class="section-tag">Contato</div>
+    <h2>Vamos <em>conversar?</em></h2>
+    <p class="contato-desc">
+      Fale comigo pelo WhatsApp e descubra como posso te ajudar a transformar sua presença digital em um <strong>canal de vendas consistente</strong>.
+    </p>
+    <a href="https://wa.me/5521978724563?text=Oi%20Karina!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" class="wa-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Quero impulsionar meu negócio
+    </a>
+    <div class="social-list">
+      <a href="https://www.instagram.com/kdesigner.mkt" target="_blank" class="social-item">
+        <span>Instagram</span><span>@kdesigner.mkt</span>
+      </a>
+      <a href="https://www.threads.net/@_karinacostas" target="_blank" class="social-item">
+        <span>Threads</span><span>@_karinacostas</span>
+      </a>
+      <a href="https://www.pinterest.com/kdesignermkt" target="_blank" class="social-item">
+        <span>Pinterest</span><span>kdesignermkt</span>
+      </a>
+      <a href="https://www.behance.net/karinacsouza" target="_blank" class="social-item">
+        <span>Behance</span><span>karinacsouza</span>
+      </a>
     </div>
   </div>
-</section>
 
-<!-- CONTACT -->
-<section class="contact" id="contato">
-  <div class="contact-subtitle">04 / Contato</div>
-  <h2>Vamos <em>trabalhar</em><br>juntos?</h2>
-  <p class="contact-desc">Disponível para freelance e projetos. Entre em contato e vamos criar algo incrível para a sua marca.</p>
-  <div class="contact-links">
-    <a href="https://www.instagram.com/kdesigner.mkt" target="_blank" class="contact-link primary">Instagram ↗</a>
-    <a href="https://www.behance.net/karinacsouza" target="_blank" class="contact-link">Behance ↗</a>
-    <a href="mailto:contato@kdesigner.com.br" class="contact-link">E-mail</a>
+  <div class="fade fd2">
+    <form class="form" onsubmit="sendWA(event)">
+      <div class="form-row">
+        <div class="fg">
+          <label>Seu nome</label>
+          <input type="text" id="f-nome" placeholder="Ex: Ana Lima" required>
+        </div>
+        <div class="fg">
+          <label>Tipo de negócio</label>
+          <input type="text" id="f-negocio" placeholder="Ex: Clínica médica" required>
+        </div>
+      </div>
+      <div class="fg">
+        <label>O que você precisa?</label>
+        <select id="f-servico" required>
+          <option value="">Selecione um serviço…</option>
+          <option>Gestão de Mídias Sociais</option>
+          <option>Design de Posts Estratégicos</option>
+          <option>Análise de Perfil</option>
+          <option>Ainda não sei / Quero conversar</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Orçamento aproximado</label>
+        <select id="f-orcamento">
+          <option value="">Selecione…</option>
+          <option>Até R$ 500/mês</option>
+          <option>R$ 500 – R$ 1.000/mês</option>
+          <option>R$ 1.000 – R$ 2.000/mês</option>
+          <option>Acima de R$ 2.000/mês</option>
+          <option>Projeto pontual</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Conta mais (opcional)</label>
+        <textarea id="f-msg" placeholder="Descreva brevemente seu negócio ou o que precisa…"></textarea>
+      </div>
+      <button type="submit" class="form-btn">Enviar pelo WhatsApp →</button>
+      <p class="form-note">Você será redirecionado ao WhatsApp com sua mensagem preenchida.</p>
+    </form>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">K<span>.</span>DESIGNER</div>
-  <div class="footer-copy">© 2026 Karina Souza · Rio de Janeiro, Brasil</div>
+  <div class="footer-logo">@kdesigner<span>.mkt</span></div>
+  <div class="footer-links">
+    <a href="#sobre">Sobre</a>
+    <a href="#servicos">Serviços</a>
+    <a href="https://www.behance.net/karinacsouza" target="_blank">Portfólio</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <div class="footer-copy">© 2026 Karina Souza · Rio de Janeiro</div>
 </footer>
 
 <script>
-  // Cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function animateCursor() {
-    cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
+// Nav scroll
+const nav = document.getElementById('nav')
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60)
+})
 
-  // Scroll reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+// Mobile menu
+const burger = document.getElementById('burger')
+const mobileMenu = document.getElementById('mobileMenu')
+const menuClose = document.getElementById('menuClose')
+burger.addEventListener('click', () => mobileMenu.classList.add('open'))
+menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'))
+function closeMenu(){ mobileMenu.classList.remove('open') }
 
-  // Nav bg on scroll
-  const nav = document.querySelector('nav');
-  window.addEventListener('scroll', () => {
-    nav.style.backdropFilter = window.scrollY > 80 ? 'blur(20px)' : 'none';
-  });
+// Fade in on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on') })
+}, { threshold: 0.1 })
+document.querySelectorAll('.fade').forEach(el => obs.observe(el))
+
+// Accordion
+function toggleServico(header) {
+  const item = header.parentElement
+  const isOpen = item.classList.contains('open')
+  document.querySelectorAll('.servico-item').forEach(i => i.classList.remove('open'))
+  if (!isOpen) item.classList.add('open')
+}
+
+// WhatsApp form
+function sendWA(e) {
+  e.preventDefault()
+  const nome = document.getElementById('f-nome').value
+  const negocio = document.getElementById('f-negocio').value
+  const servico = document.getElementById('f-servico').value
+  const orcamento = document.getElementById('f-orcamento').value
+  const msg = document.getElementById('f-msg').value
+  let txt = `Oi Karina! Vim pelo seu site e gostaria de um orçamento.%0A%0A*Nome:* ${encodeURIComponent(nome)}%0A*Negócio:* ${encodeURIComponent(negocio)}%0A*Serviço:* ${encodeURIComponent(servico)}`
+  if(orcamento) txt += `%0A*Orçamento:* ${encodeURIComponent(orcamento)}`
+  if(msg) txt += `%0A*Mensagem:* ${encodeURIComponent(msg)}`
+  window.open(`https://wa.me/5521976590941?text=${txt}`, '_blank')
+}
 </script>
 </body>
 </html>
